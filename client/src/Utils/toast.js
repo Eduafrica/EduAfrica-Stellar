@@ -11,17 +11,18 @@ const Shake = cssTransition({
 
 /**
  * Reusable toast notification
- * @param {'success' | 'error' | 'info' | 'warn'} type 
- * @param {string} message 
+ * @param {'success' | 'error' | 'info' | 'warn'} type
+ * @param {string} message
  */
 export const notify = (type = 'info', message = '') => {
   toast[type](message, {
     transition: Shake,
     position: 'top-right',
-    autoClose: 3000,
+    autoClose: 3000, // auto close after 3s
     hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
+    closeOnClick: true, // allow close by clicking
+    pauseOnHover: true, // pause timer when hovered
+    draggable: true, // allow drag-to-close
+    closeButton: true, // show close (X) button
   });
 };
