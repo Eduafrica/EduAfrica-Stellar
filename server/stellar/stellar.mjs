@@ -62,7 +62,7 @@ export async function sendXLMWithBridge({
     destinationPublic, 
     amount, 
     companyWallet,
-    feePercentage = 25 // Default 25% fee
+    feePercentage = 25
 }) {
     try {
         if (!companyWallet) {

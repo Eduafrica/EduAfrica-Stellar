@@ -39,10 +39,6 @@ app.use(cors(corsOptions));
 // Add Morgan middleware to log HTTP requests
 app.use(morgan('dev'));
 
-//STRIPE WEBHOOK
-//import * as sexOrientControllers from './controllers/sex-orient/stripeWebhook.controllers.js';
-
-//app.post('/api/sex-orient/webhook/stripeWebHook', express.raw({ type: 'application/json' }), sexOrientControllers.stripeWebHook);
 
 //EXPRESS MIDDLEWARE
 app.use(cookieParser());
@@ -66,7 +62,7 @@ import YAML from 'yamljs';
 
 const swaggerGeneralJSDocs = YAML.load('./docs/api-doc.yaml');
 
-// Serve Swagger UI correctly for each route
+// Serve Swagger UI correctly for all route
 const swaggerGeneralUI = swaggerUI.serveFiles(swaggerGeneralJSDocs, { explorer: true });
 
 //Swagger docs routes

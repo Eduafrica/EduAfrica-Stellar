@@ -25,6 +25,9 @@ const TransactionSchema = new mongoose.Schema({
     },
     feeCharged: {
         type: Number
+    },
+    paymentMethod: {
+        type: String,
     }
 },
 { timestamps: true }

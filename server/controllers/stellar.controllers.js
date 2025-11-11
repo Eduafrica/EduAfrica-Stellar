@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs"
 import { sendResponse } from "../middlewares/utils.js"
 import CourseInfoModel from "../model/CourseInfo.js"
 import IntructorModel from "../model/Instructor.js"
@@ -78,35 +79,48 @@ export async function getPaymentHistroy(req, res) {
 //send money
 export async function sendMoney(req, res) {
     const { userId } = req.user
-    const { destinationPublic, courseId } = req.body
+    const { destinationPublic, amount } = req.body
     if(!destinationPublic) return sendResponse(res, 400, false, null, 'Proivde destination address key')
-    if(!courseId) return sendResponse(res, 400, false, null, 'Course Id is required')
     
     try {
-        const getCourse = await CourseInfoModel.findOne({ courseId })
-        if(!getCourse) return sendResponse(res, 404, false, null, 'Course not found')
+        //get user
+        let getUser 
+        getUser = await KeyModel.findOne({ userId })
         
-        //get student secret ket
-        const getStudentKey = await KeyModel.findOne({ userId })
-
-        //get instructor public ket
-        const getInstructorKey = await KeyModel.findOne({ userId: getCourse?.userId })
-
+        //get balance
+        const getWalletBalance = await getBalance(getAccount?.stellarPublic)
+        console.log('getWalletBalancegetWalletBalance', getWalletBalance?.balance)
+        
         //make payment
-        const price = getCourse?.price
+        const price = Number(amount)
 
         const stellarPayment = await sendXLM({ 
-            sourceSecret: getStudentKey?.stellarSecretEncrypted, 
-            destinationPublic: getInstructorKey?.stellarPublic,
+            sourceSecret: getUser?.stellarSecretEncrypted, 
+            destinationPublic: destinationPublic,
             amount: Number(price)
         })
 
-        //notify student
-        //notify instructor
-        //create order - save status to
+        if(stellarPayment.success) {
+            const transactionData = {
+                userId,
+                id: stellarPayment?.id,
+                hash: stellarPayment?.hash,
+                success: stellarPayment?.successful,
+                ledger: stellarPayment?.ledger,
+                date: stellarPayment?.created_at,
+                amount: price,
+                feeCharged: stellarPayment?.fee_charged,
+                paymentMethod: 'Stellar'
+            }
+
+            const newTransaction = await TransactionModel.create(transactionData)
+        }
+
+        console.log('stellarPaymentstellarPayment', stellarPayment)
+        sendResponse(res, 201, true, stellarPayment, 'Payment successfull')
     } catch (error) {
-        console.log('UNABLE TO MAKE PAYMENT OF COURSE', error)
-        sendResponse(res, 500, false, null, 'Unable to process payment for course')
+        console.log('UNABLE TO MAKE PAYMENT', error)
+        sendResponse(res, 500, false, null, 'Unable to process payment')
     }
 }
 
