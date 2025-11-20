@@ -25,13 +25,26 @@ export async function newWaitList(req, res) {
     }
 }
 
-//get all waitlist members
+//get all waitlist members count
 export async function getWaitListMembersCount(req, res) {
     
     try {
         const waitlists = await WaitListModel.find()
 
         sendResponse(res, 200, true, { totalMembers: 1827 + waitlists.length, }, 'Wait list fetched successfull')
+    } catch (error) {
+        console.log('UNABE TO GET WAITLIST USER', error)
+        sendResponse(res, 500, false, null, 'Unable to get waitlist users')
+    }
+}
+
+//get all waitlist members
+export async function getWaitListMembers(req, res) {
+    
+    try {
+        const waitlists = await WaitListModel.find()
+
+        sendResponse(res, 200, true, { totalMembers: 1827 + waitlists.length, waitlists, }, 'Wait list fetched successfull')
     } catch (error) {
         console.log('UNABE TO GET WAITLIST USER', error)
         sendResponse(res, 500, false, null, 'Unable to get waitlist users')

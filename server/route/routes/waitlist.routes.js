@@ -9,5 +9,6 @@ router.post('/join', controllers.newWaitList)
 
 //GET
 router.get('/count', getLocation, controllers.getWaitListMembersCount)
+router.get('/', getLocation, controllers.getWaitListMembers)
 
 export default router
