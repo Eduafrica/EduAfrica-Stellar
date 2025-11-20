@@ -15,6 +15,7 @@ import InstructorLogin from "./Pages/Instructor/InstructorLogin"
 import InstructorRegister from "./Pages/Instructor/InstructorRegister"
 import InstructorCourses from "./Pages/Instructor/InstructorCourses"
 import NewCourse from "./Pages/Instructor/NewCourse"
+import WaitList from "./Pages/WaitList"
 
 function App() {
   //selected coursejkjkj
@@ -35,6 +36,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home setSelectedCourse={setSelectedCourse} />} />
+                <Route path="/waitlist" element={<WaitList setSelectedCourse={setSelectedCourse} />} />
                 <Route path="/courses" element={<Courses setSelectedCourse={setSelectedCourse} />} />
                 <Route path="/student" element={<StudentGetStarted />} />
                 <Route path="/student/register" element={<StudentRegister />} />
