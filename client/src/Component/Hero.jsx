@@ -2,7 +2,7 @@ import { Link } from "react-router"
 
 function Hero() {
   return (
-    <div className="w-full h-[427px] bg-primary text-white text-center flex items-center justify-center flex-col font-poppins">
+    <div className="w-full min-h-[427px] bg-primary text-white text-center flex items-center justify-center flex-col font-poppins py-8">
         <div className="flex flex-col gap-5 w-[40%] max-phone:w-[70%] items-center justify-center">
             <div className="font-semibold text-[36px] text-center">
                 Skill up and take your career to the next level.

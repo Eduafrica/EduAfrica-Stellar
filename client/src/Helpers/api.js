@@ -154,3 +154,16 @@ export async function coursePayment(formData){
         return res
     }
 }
+
+//Join Waitlist
+export async function joinWaitList(formData){
+    try {
+        const res = await axios.post('/waitlist/join', formData, {withCredentials: true})
+        if(res.data){
+            return res.data
+        }
+    } catch (error) {
+        const res = error.response.data || { message: 'Unable to join waitlist'}
+        return res
+    }
+}

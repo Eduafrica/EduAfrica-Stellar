@@ -6,6 +6,7 @@ import UploadRoutes from "./routes/upload.routes.js";
 import CourseRoutes from "./routes/course.routes.js";
 import CategoryRoutes from "./routes/category.routes.js";
 import UserRoutes from "./routes/user.routes.js";
+import WaitListRoutes from "./routes/waitlist.routes.js";
 
 const router = Router();
 
@@ -16,6 +17,7 @@ router.use("/stellar", StellarRoutes);
 router.use("/course", CourseRoutes);
 router.use("/user", UserRoutes);
 router.use("/category", CategoryRoutes);
+router.use("/waitlist", WaitListRoutes);
 
 
 

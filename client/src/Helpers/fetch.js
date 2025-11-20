@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { notify } from "../Utils/toast";
+import { useCallback } from "react";
 
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
 axios.defaults.withCredentials = true
@@ -299,4 +300,38 @@ export function useFetchNotification(){
     }, [])
 
     return data
+}
+
+//get wait list members count
+export function useFetchWaitListMembersCount() {
+    const [data, setData] = useState({
+        isFetching: true,
+        data: null,
+        status: null,
+        serverError: null,
+    });
+
+    // fetch function
+    const fetchData = useCallback(async () => {
+        setData(prev => ({ ...prev, isFetching: true }));
+        try {
+            const { data: resData, status } = await axios.get(`/waitlist/count`, { withCredentials: true });
+            if (status === 200) {
+                setData({ isFetching: false, data: resData, status, serverError: null });
+            } else {
+                setData({ isFetching: false, data: null, status, serverError: null });
+            }
+        } catch (error) {
+            const errorMsg = error?.response?.data?.data;
+            notify('error', errorMsg || 'Request Failed');
+            setData({ isFetching: false, data: null, status: null, serverError: error });
+        }
+    }, []);
+
+    // fetch on mount
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
+    return { ...data, refetch: fetchData }; // ✅ expose refetch
 }
