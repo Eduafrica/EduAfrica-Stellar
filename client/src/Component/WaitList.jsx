@@ -82,12 +82,12 @@ function WaitListPage() {
         {/* Wait list form */}
         <div className="w-full lg:flex-1 flex flex-col gap-6 md:gap-[48px] text-center lg:text-left">
             <h1 className="text-center text-[32px] md:text-[40px] lg:text-[48px] font-semibold text-gray-900 leading-tight">
-                Join Other Amazing tallents in our Wait List
+                Join Other Amazing teachers in our Wait List
             </h1>
             {
                 data?.data?.totalMembers && (
                     <p className="text-center -mt-4 text-[16px] md:text-[18px] lg:text-[20px] font-light text-gray-700">
-                        <span className='text-primary font-semibold text-[20px] md:text-[22px] lg:text-[24px]'>{data?.data?.totalMembers}</span> of other amazing users already in our waitlist
+                        <span className='text-primary font-semibold text-[20px] md:text-[22px] lg:text-[24px]'>{data?.data?.totalMembers}</span> of other amazing teachers already in our waitlist
                     </p>
                 )
             }
